@@ -1,0 +1,135 @@
+@use "../global/mixins" as mix;
+@use "../global/variables" as vars;
+
+.answer-list {
+
+  @include mix.vp-767 {
+    padding: 15px 0 30px;
+  }
+
+  &__wrapper {
+    @include mix.vp-767 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+  }
+
+  &__text {
+    @include mix.vp-767 {
+      display: block;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 1.2em;
+      text-transform: uppercase;
+      color: vars.$color-gray-dark;
+      pointer-events: none;
+
+      &--border {
+        border: 1px solid vars.$color-athens-gray;
+        padding: 8px 4px;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__title {
+
+    @include mix.vp-767 {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.2em;
+      color: vars.$color-gray-light;
+      margin-bottom: 16px;
+    }
+  }
+
+  & picture {
+
+    @include mix.vp-767 {
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+  }
+
+  &__image {
+
+    @include mix.vp-767 {
+      width: 100%;
+    }
+
+  }
+
+  &__fieldset {
+
+    @include mix.vp-767 {
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+  }
+
+  &__legend {
+
+    @include mix.vp-767 {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.4em;
+      color: #00001A;
+      margin-bottom: 32px;
+    }
+  }
+
+  &__items {
+
+    @include mix.vp-767 {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;  
+      margin-bottom: 5px;
+    }
+  }
+
+  &__label {
+    
+    @include mix.vp-767 {
+      display: block;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.2em;
+      text-transform: uppercase;
+      color: vars.$color-black-russian-2;
+      padding: 25px 12px 15px;
+      border: 1px solid vars.$color-gray-light;
+      cursor: pointer;
+
+      &:hover {
+        color: vars.$color-white;
+        background-color: vars.$color-gray-dark;
+        border-color: vars.$color-white;
+      }
+    }
+  }
+
+  &__input:checked + .answer-list__label {
+    background-color: vars.$color-oxley;
+    border-color: vars.$color-oxley;
+    color: vars.$color-white;
+  }
+
+
+  &__button {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+    text-transform: uppercase;
+    margin-left: auto;
+    text-align: right;
+  }
+}

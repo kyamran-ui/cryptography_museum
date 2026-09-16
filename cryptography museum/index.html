@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ZeroTrace — интерактивный тренажёр по цифровой безопасности" />
+    <meta name="theme-color" content="#061411" />
+    <title>ZeroTrace — цифровая безопасность</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <section class="answer-list">
+        <div class="container">
+            <div class="answer-list__wrapper">
+                <span class="answer-list__text answer-list__text--border">пароли</span>
+                <span class="answer-list__text">1/10</span>
+            </div>
+            <h3 class="answer-list__title">Твой цифровой двойник</h3>
+            <picture>
+                <source media="(max-width: 767px)"
+                    srcset="./images/mobile/image_1.png 1x, ./images/mobile/image_1@2x.png 2x">
+                <source media="(max-width: 1023px)" srcset="">
+                <img class="answer-list__image" src="./images/mobile/image_1.png"
+                    srcset="./images/mobile/image_1.png 1x, ./images/mobile/image_1@2x.png 2x"
+                    width="328" height="145" alt="Тематическое фото">
+            </picture>
+
+            <!---Форма с вариантами выбора-->
+            <form class="answer-list__form">
+                <fieldset class="answer-list__fieldset">
+                    <legend class="answer-list__legend">Будильник прозвенел. Прежде чем встать, вы&nbsp;разблокируете
+                        телефон&nbsp;&mdash; привычным движением, не&nbsp;глядя.</legend>
+                    <div class="answer-list__items">
+                        <div class="answer-list__item">
+                            <input class="answer-list__input visually-hidden" type="radio" id="pattern-lock" name="answer" value="pattern-lock">
+                            <label class="answer-list__label" for="pattern-lock">Графический ключ в&nbsp;виде галочки</label>
+                        </div>
+                        <div class="answer-list__item">
+                            <input class="answer-list__input visually-hidden" type="radio" id="pin-code" name="answer" value="pin-code">
+                            <label class="answer-list__label" for="pin-code">PIN 1234&nbsp;&mdash; так проще запомнить</label>
+                        </div>
+                        <div class="answer-list__item">
+                            <input class="answer-list__input visually-hidden" type="radio" id="face-id" name="answer" value="face-id">
+                            <label class="answer-list__label" for="face-id">Face id + сложный резервный код</label>
+                        </div>
+                        <div class="answer-list__item">
+                            <input class="answer-list__input visually-hidden" type="radio" id="without-password" name="answer" value="without-password">
+                            <label class="answer-list__label" for="without-password">Экран вообще без защиты</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <button class="answer-list__button btn" type="submit" aria-label="Кнопка ответить" disabled>
+                    <span class="answer-list__button-text">Ответить</span>
+                    <svg class="answer-list__icon" width="12" height="8" aria-hidden="true" aria-label="Стрелка вправо">
+                        <use href="./images/sprite.svg#arrow-right"></use>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+</body>
+
+</html>
