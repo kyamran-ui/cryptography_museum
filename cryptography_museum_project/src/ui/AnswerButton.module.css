@@ -1,0 +1,29 @@
+.list {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  min-height: 52px;
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid var(--border-primary);
+  background: var(--white);
+  color: var(--black-primary);
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.selected {
+  background: var(--blue-primary);
+  border-color: var(--blue-primary);
+  color: var(--white);
+}

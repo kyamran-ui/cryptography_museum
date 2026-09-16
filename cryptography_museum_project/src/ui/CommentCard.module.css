@@ -1,0 +1,35 @@
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.portrait {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.quote {
+  width: 22px;
+  height: 18px;
+  color: var(--blue-primary);
+}
+
+.body {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 140%;
+}

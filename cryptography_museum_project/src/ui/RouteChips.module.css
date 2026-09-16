@@ -1,0 +1,56 @@
+.wrap {
+  position: relative;
+}
+
+.scroller {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  background: var(--bg-route-muted);
+  color: var(--black-primary);
+  cursor: pointer;
+}
+
+.current {
+  background: var(--blue-primary);
+  color: var(--white);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+.fadeLeft,
+.fadeRight {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-primary), transparent);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg-primary), transparent);
+}

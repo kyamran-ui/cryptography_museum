@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+}
+
+.logoMuseum {
+  height: 28px;
+  width: auto;
+}
+
+.logoBastion {
+  height: 20px;
+  width: auto;
+}
+
+.resultsLink {
+  color: var(--blue-primary);
+  text-decoration: none;
+  font-size: 14px;
+}

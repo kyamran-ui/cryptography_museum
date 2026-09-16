@@ -1,0 +1,44 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.kicker {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.points {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 120%;
+}
+
+.caption {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.s0 {
+  color: var(--error);
+}
+
+.s3,
+.s5 {
+  color: var(--blue-primary);
+}
+
+.s10 {
+  color: var(--success);
+}

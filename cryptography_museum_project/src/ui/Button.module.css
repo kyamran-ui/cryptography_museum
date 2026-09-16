@@ -1,0 +1,45 @@
+.btn {
+  min-height: 52px;
+  min-width: 44px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.fill {
+  background: var(--black-primary);
+  border-color: var(--black-primary);
+  color: var(--white);
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--blue-primary);
+}
+
+.disabled {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}

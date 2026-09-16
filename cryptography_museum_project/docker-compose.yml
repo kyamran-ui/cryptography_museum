@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
+        VITE_ADMIN_PASSWORD: ${VITE_ADMIN_PASSWORD:-}
+    ports:
+      - "8080:8080"
