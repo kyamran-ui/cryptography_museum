@@ -1,0 +1,25 @@
+# Локальные файлы конфигурации с токенами и ключами
+.env
+.env.txt
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Тяжелые архивы, которые не должны храниться в коде
+*.zip
+*.tar
+*.gz
+*.rar
+
+# Системные файлы и логи
+.DS_Store
+Thumbs.db
+*.log
+
+# Папки зависимостей (если это Node.js / Python проект)
+node_modules/
+__pycache__/
+venv/
+.venv/
