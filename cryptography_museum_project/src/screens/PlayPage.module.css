@@ -1,0 +1,169 @@
+.scene {
+  animation: scene-in 0.4s ease;
+}
+
+.artFrame {
+  display: block;
+  width: calc(100% + 2rem);
+  max-width: none;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.play {
+  gap: 16px;
+}
+
+.question,
+.copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.submit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-right: 16px;
+  padding-bottom: 0;
+}
+
+.debrief {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .play {
+    gap: 0;
+  }
+
+  .chips {
+    margin-bottom: 80px;
+  }
+
+  .meta {
+    margin-bottom: 60px;
+  }
+
+  .meta .count {
+    font-family: "Halvar Breitschrift", "Arial Narrow", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .meta .badge {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .question {
+    display: grid;
+    flex: none;
+    grid-template-columns: minmax(180px, min(480px, 36%)) minmax(0, 1fr);
+    column-gap: clamp(24px, 3vw, 72px);
+    align-items: center;
+  }
+
+  .question .artFrame {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .copy {
+    flex: none;
+    gap: 0;
+  }
+
+  .copy .title {
+    margin: 0 0 20px;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .copy .story {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+
+  .copy .answers {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 1.66vw, 24px);
+    margin-bottom: 44px;
+  }
+
+  .submit {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .submit .reply {
+    min-height: 0;
+    font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    align-items: center;
+  }
+
+  .submit .reply span {
+    width: 21px;
+    height: 19px;
+    flex: 0 0 21px;
+  }
+
+  .debrief {
+    flex: none;
+    gap: 0;
+  }
+
+  .comments {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+}
+
+@keyframes scene-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

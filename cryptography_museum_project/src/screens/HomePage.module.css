@@ -1,0 +1,152 @@
+.page {
+  min-width: 0;
+}
+
+.titleDesktop {
+  display: none;
+}
+
+.metaIcon {
+  display: block;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.map {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    column-gap: clamp(32px, 4vw, 80px);
+    align-items: stretch;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  .page .badge {
+    margin-bottom: 28px;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .page .title {
+    margin: 0 0 28px;
+    font-size: clamp(48px, 4.17vw, 80px);
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0;
+  }
+
+  .titleMobile {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .titleDesktop {
+    display: inline;
+  }
+
+  .star {
+    width: 48px;
+    height: 48px;
+    margin-left: 8px;
+  }
+
+  .page .subtitle {
+    max-width: 16em;
+    margin-bottom: 20px;
+    font-size: clamp(24px, 1.67vw, 32px);
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .page .lead {
+    max-width: 22em;
+    margin-bottom: 36px;
+    font-size: clamp(18px, 1.25vw, 24px);
+    font-weight: 300;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+
+  .page .start {
+    width: 360px;
+    max-width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+  }
+
+  .map {
+    display: block;
+    align-self: center;
+  }
+
+  .meta {
+    flex-direction: row;
+    gap: 78px;
+    margin-top: auto;
+    padding-top: clamp(48px, 6vw, 96px);
+  }
+
+  .page .metaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page .metaIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .page .metaText {
+    font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+}
+
+@media (hover: hover) {
+  .page .start {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .page .start img {
+    transition: filter 0.3s ease;
+  }
+
+  .page .start:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #00001a;
+  }
+
+  .page .start:hover img {
+    filter: brightness(0);
+  }
+}

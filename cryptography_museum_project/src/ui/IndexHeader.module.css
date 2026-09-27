@@ -1,0 +1,196 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: "Halvar Breitschrift", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: var(--black-primary);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.disk {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+}
+
+.disk svg {
+  display: block;
+  transform: rotate(-90deg);
+}
+
+.track {
+  stroke: #e7ebf5;
+}
+
+.arc {
+  stroke: var(--blue-primary);
+}
+
+.figure {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: var(--black-primary);
+}
+
+.of {
+  margin-top: 2px;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  color: var(--text-secondary);
+}
+
+.profile {
+  min-width: 0;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.name {
+  margin: 0;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: -0.02em;
+  color: var(--black-primary);
+}
+
+.body {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--black-primary);
+}
+
+@media (min-width: 1024px) {
+  .header {
+    display: contents;
+  }
+
+  .title {
+    flex: 1 0 100%;
+    font-size: 32px;
+    line-height: 120%;
+    letter-spacing: 0;
+  }
+
+  .cluster {
+    display: grid;
+    flex: 1 1 0;
+    grid-template-columns: 160px minmax(0, 1fr);
+    column-gap: 24px;
+    row-gap: 8px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .row {
+    display: contents;
+  }
+
+  .disk {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 160px;
+    height: 160px;
+    flex-basis: 160px;
+  }
+
+  .disk svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .value {
+    font-size: 60px;
+    line-height: 120%;
+    letter-spacing: -0.08em;
+    text-align: center;
+  }
+
+  .of {
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .kicker {
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+  }
+
+  .name {
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: -0.02em;
+  }
+
+  .profile {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    min-width: 0;
+  }
+
+  .body {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    min-width: 0;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+}

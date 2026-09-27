@@ -1,0 +1,153 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: uppercase;
+  color: #adafb3;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+}
+
+.network {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 1px solid #d1d6e6;
+  background: transparent;
+  color: #00001a;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.network:focus {
+  outline: none;
+}
+
+.network:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.glyph {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 28px;
+  max-height: 28px;
+}
+
+.replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 120%;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #1e53e6;
+  transition:
+    background-color 0.3s ease,
+    padding 0.3s ease,
+    margin 0.3s ease,
+    border-radius 0.3s ease;
+}
+
+.replay:focus {
+  outline: none;
+}
+
+.replay:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 4px;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    margin-top: 0;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .network {
+    width: 58px;
+    height: 58px;
+  }
+
+  .glyph {
+    width: 30px;
+    height: 30px;
+    max-width: none;
+    max-height: none;
+  }
+
+  .replay {
+    font-size: 16px;
+    padding: 12px;
+    margin-top: 24px;
+    margin-inline: -12px;
+    margin-bottom: -12px;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+  }
+
+  .arrow {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .network:hover {
+    border-color: #eff1f7;
+    background-color: #eff1f7;
+  }
+
+  .replay:hover {
+    background-color: #eff1f7;
+  }
+}

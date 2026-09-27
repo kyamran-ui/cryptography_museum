@@ -1,0 +1,68 @@
+.btn {
+  max-width: 100%;
+  min-height: 52px;
+  min-width: 44px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 2px;
+}
+
+.fill {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 6px 16px;
+  background: var(--black-primary);
+  border-color: var(--black-primary);
+  color: var(--white);
+}
+
+.ghost {
+  justify-content: flex-start;
+  width: auto;
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  color: var(--blue-primary);
+}
+
+.disabled {
+  color: var(--text-secondary);
+  opacity: 1;
+  cursor: default;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.iconMask {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}

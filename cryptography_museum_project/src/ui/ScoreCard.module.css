@@ -1,0 +1,141 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 16px;
+  background: var(--white);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.choice {
+  margin: 8px 0 0;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.points {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 120%;
+  letter-spacing: -0.08em;
+  color: #00001A;
+}
+
+.caption {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #00001A;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #1e53e6;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  background-color: #1e53e6;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.s0 {
+  color: var(--error);
+}
+
+.s3,
+.s5 {
+  color: var(--blue-primary);
+}
+
+.s10 {
+  color: var(--success);
+}
+
+@media (min-width: 1024px) {
+  .card {
+    align-items: center;
+    min-height: 172px;
+    margin-bottom: 80px;
+    padding: 24px;
+    background: #fff;
+  }
+
+  .kicker {
+    font-size: 16px;
+  }
+
+  .choice {
+    margin-top: 12px;
+    font-size: 24px;
+    letter-spacing: 0;
+  }
+
+  .label {
+    margin-top: 26px;
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .score {
+    align-self: stretch;
+    justify-content: center;
+    padding-left: 24px;
+    border-left: 1px solid var(--border);
+  }
+
+  .points {
+    font-size: 60px;
+    line-height: 120%;
+    letter-spacing: -0.08em;
+  }
+
+  .caption {
+    font-family: var(--font-ui);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+    color: #adafb3;
+  }
+}

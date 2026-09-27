@@ -1,0 +1,56 @@
+.list {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 16px;
+  text-align: left;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--border-primary);
+  background: var(--white);
+  color: var(--black-primary);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    outline-color 0.25s ease;
+}
+
+.btn:focus {
+  outline: 2px solid transparent;
+}
+
+.btn:focus-visible {
+  outline-color: var(--blue-primary);
+}
+
+@media (hover: hover) {
+  .btn:hover:not(.selected) {
+    background: #e7ebf5;
+  }
+}
+
+.selected {
+  background: var(--blue-primary);
+  border-color: var(--blue-primary);
+  color: var(--white);
+}
+
+@media (min-width: 1024px) {
+  .btn {
+    display: flex;
+    align-items: center;
+    min-height: clamp(56px, 4.97vw, 72px);
+    padding: clamp(10px, 0.83vw, 12px) clamp(12px, 1.1vw, 16px);
+    font-size: clamp(16px, 1.38vw, 20px);
+    font-weight: 350;
+    line-height: 140%;
+    letter-spacing: 0.02em;
+  }
+}

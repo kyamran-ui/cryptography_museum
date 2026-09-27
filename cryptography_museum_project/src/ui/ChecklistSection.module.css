@@ -1,0 +1,116 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border-left: 4px solid #1e53e6;
+  padding: 16px 0 16px 16px;
+  background-color: #ffffff;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--black-primary);
+}
+
+.text {
+  margin: 0;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: var(--black-primary);
+}
+
+.download {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #1e53e6;
+  transition:
+    background-color 0.3s ease,
+    padding 0.3s ease,
+    margin 0.3s ease,
+    border-radius 0.3s ease;
+}
+
+.download:focus {
+  outline: none;
+}
+
+.download:focus-visible {
+  outline: 2px solid var(--blue-primary);
+  outline-offset: 4px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background-color: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+  }
+
+  .text {
+    margin-bottom: 8px;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: 0;
+  }
+
+  .download {
+    align-items: center;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    padding: 12px;
+    margin: -12px;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+  }
+
+  .icon {
+    width: 21px;
+    height: 19px;
+    flex: 0 0 21px;
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .download:hover {
+    background-color: #eff1f7;
+  }
+}

@@ -1,0 +1,36 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  max-width: 480px;
+  min-height: 100dvh;
+  margin-inline: auto;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-inline: 16px;
+}
+
+@media (min-width: 1024px) {
+  .shellDesktop {
+    max-width: none;
+    padding-top: 21px;
+    padding-bottom: 88px;
+    /* 1024px → 50px, 1800px → 200px; шире 1800 остаётся 200px */
+    padding-inline: clamp(50px, calc(50px + (100vw - 1024px) * 150 / 776), 200px);
+  }
+
+  .shellDesktop > header {
+    padding-top: 0;
+  }
+
+  .mainDesktop {
+    padding-inline: 0;
+  }
+}

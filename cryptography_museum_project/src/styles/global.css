@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+:root {
+  --white: #ffffff;
+  --bg-primary: #f9f9f9;
+  --blue-primary: #1e53e6;
+  --blue-primary-80: rgba(30, 83, 230, 0.8);
+  --blue-primary-50: rgba(30, 83, 230, 0.5);
+  --black-primary: #00001a;
+  --text-secondary: #adafb3;
+  --border-primary: #6e89d3;
+  --border: #d1d6e6;
+  --bg-route-next: #e7ebf5;
+  --bg-route-muted: #eff1f7;
+  --error: #e25504;
+  --success: #00b893;
+  --font-display: "Halvar Breitschrift", "Arial Narrow", sans-serif;
+  --font-ui: "Bahnschrift", "Segoe UI", "Arial Narrow", sans-serif;
+  --font-quote: "BBH Bogle", "Impact", "Arial Black", sans-serif;
+}
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("/fonts/Halvar%20Breitschrift-Regular-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Breitschrift";
+  src: url("/fonts/Halvar%20Breitschrift-Bold-Web.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Engschrift";
+  src: url("/fonts/Halvar%20Engschrift%20-Regular%20Slanted-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Mittelschrift";
+  src: url("/fonts/Halvar%20Mittelschrift-Regular-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Mittelschrift";
+  src: url("/fonts/Halvar%20Mittelschrift-Medium-Web.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Mittelschrift";
+  src: url("/fonts/Halvar%20Mittelschrift-Regular%20Slanted-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Halvar Stencil Mittelschrift";
+  src: url("/fonts/Halvar%20Stencil%20Mittelschrift-Regular%20MinGap-Web.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--black-primary);
+  font-family: var(--font-ui);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 100%;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  margin: 0 0 16px 0;
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 120%;
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+.t-subtitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--blue-primary);
+  margin: 0 0 16px 0;
+}
+
+.t-body-l {
+  font-size: 18px;
+  line-height: 140%;
+  font-weight: 300;
+}
+
+.t-intro {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--black-primary);
+}
+
+.t-caption {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 120%;
+  color: #1E53E6;
+  font-style: bold;
+}
+
+.t-badge {
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 120%;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #1E53E6;
+}
+
+.t-points {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 120%;
+}
+
+@media (max-width: 480px) {
+  .t-h1,
+  .t-subtitle,
+  .t-caption,
+  .t-body-l {
+    overflow-wrap: break-word;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,173 @@
+.wrap {
+  position: relative;
+  width: calc(100% + 32px);
+  min-width: 0;
+  max-width: none;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+.scroller {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.scroller::before,
+.scroller::after {
+  content: "";
+  flex: 0 0 16px;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 48px;
+  height: 67px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue-primary);
+  cursor: pointer;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-route-next);
+  transition: background-color 0.3s ease;
+}
+
+.current .mark {
+  background: var(--blue-primary);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  background-color: var(--blue-primary);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.current .icon {
+  background-color: var(--bg-primary);
+}
+
+.label {
+  color: var(--blue-primary);
+  transition: color 0.3s ease;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 140%;
+  white-space: nowrap;
+}
+
+.joint {
+  position: relative;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 0;
+  margin-top: 19.5px;
+}
+
+.joint::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 0;
+  border-top: 1px solid var(--border-primary);
+}
+
+@media (min-width: 1024px) {
+  .wrap {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .scroller {
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .scroller::before,
+  .scroller::after {
+    content: none;
+    flex-basis: 0;
+  }
+
+  .chip {
+    flex-basis: 60px;
+    width: 60px;
+    height: auto;
+  }
+
+  .mark {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .label {
+    font-family: Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 140%;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  .joint {
+    flex: 0 1 44px;
+    width: 44px;
+    min-width: 12px;
+    margin-top: 29.5px;
+  }
+
+  .chip:focus-visible {
+    outline: 2px solid var(--blue-primary);
+    outline-offset: 4px;
+  }
+
+  .chip:not(.current):focus-visible .mark {
+    background: #d4dbea;
+  }
+
+  .chip:not(.current):focus-visible .label {
+    color: #1540b5;
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .chip:not(.current):hover .mark {
+    background: #d4dbea;
+  }
+
+  .chip:not(.current):hover .label {
+    color: #1540b5;
+  }
+}
