@@ -5,6 +5,7 @@ import { ApiError } from "@/api/types";
 import { HeaderMuseumBastion } from "@/ui/HeaderMuseumBastion";
 import { GhostButton, PrimaryButton } from "@/ui/Buttons";
 import { PasswordField } from "@/ui/kit";
+import styles from "./AdminLoginPage.module.css";
 
 export function AdminLoginPage() {
   const nav = useNavigate();
@@ -43,16 +44,28 @@ export function AdminLoginPage() {
         onSubmit={onSubmit}
       >
         <HeaderMuseumBastion />
-        <h1 className="t-h2">Статистика стенда</h1>
-        <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Только сотрудники. Прохождения анонимны: без имён и контактов.
-        </p>
-        <PasswordField value={password} onChange={setPassword} />
+        <h1 className="t-h2">Посмотреть статистику</h1>
+        <PasswordField
+          value={password}
+          onChange={setPassword}
+          label="Введите пароль"
+          labelClassName={styles.label}
+        />
         {error ? <p style={{ color: "var(--error)" }}>{error}</p> : null}
-        <PrimaryButton type="submit" disabled={empty || loading}>
+        <PrimaryButton
+          className={styles.enter}
+          type="submit"
+          disabled={empty || loading}
+          iconSrc={empty || loading ? undefined : "/icons/arrow_right.svg"}
+        >
           {loading ? "Вход…" : "Войти"}
         </PrimaryButton>
-        <GhostButton type="button" onClick={() => nav("/")}>
+        <GhostButton
+          className={styles.game}
+          type="button"
+          iconSrc="/icons/arrow_right.svg"
+          onClick={() => nav("/")}
+        >
           К игре
         </GhostButton>
       </form>

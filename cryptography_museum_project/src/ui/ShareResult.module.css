@@ -130,8 +130,24 @@
     margin-top: 24px;
     margin-inline: -12px;
     margin-bottom: -12px;
+    border: 1px solid transparent;
     border-radius: 2px;
-    transition: background-color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .replay:focus-visible {
+    outline: none;
+    background: transparent;
+    border: 1px solid #1e53e6;
+    padding: 12px;
+  }
+
+  .network:focus-visible {
+    outline: none;
+    background: transparent;
+    border-color: #1e53e6;
   }
 
   .arrow {
@@ -143,11 +159,13 @@
 
 @media (min-width: 1024px) and (hover: hover) {
   .network:hover {
-    border-color: #eff1f7;
-    background-color: #eff1f7;
+    border-color: #1e53e6;
+    background-color: transparent;
   }
 
   .replay:hover {
-    background-color: #eff1f7;
+    background-color: transparent;
+    border: 1px solid #1e53e6;
+    padding: 12px;
   }
 }

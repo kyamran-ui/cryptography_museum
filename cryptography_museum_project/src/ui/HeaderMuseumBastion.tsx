@@ -9,11 +9,10 @@ type Props = {
 export function HeaderMuseumBastion({ rightSlot, wide }: Props) {
   return (
     <header className={`${styles.header} ${wide ? styles.wide : ""}`}>
-      {/* 🛠 ОБЕРНУЛИ ЛОГОТИП В ССЫЛКУ: теперь при клике на логотип будет открываться сайт музея */}
-      <a 
-        href="https://cryptomuseum.ru" 
-        target="_blank" 
-        rel="noreferrer" 
+      <a
+        href="https://cryptography-museum.ru/"
+        target="_blank"
+        rel="noopener noreferrer"
         className="flex shrink-0"
       >
         <img

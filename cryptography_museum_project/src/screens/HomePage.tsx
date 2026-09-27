@@ -7,6 +7,7 @@ import {
 } from "@/session/storage";
 import { GhostButton, PrimaryButton } from "@/ui/Buttons";
 import { HomeRouteMap } from "@/ui/HomeRouteMap";
+import { BracketPhrase } from "@/ui/BracketPhrase";
 import styles from "./HomePage.module.css";
 
 export function HomePage() {
@@ -23,7 +24,7 @@ export function HomePage() {
           className={`t-badge mb-20 ${styles.badge}`}
           style={{ color: "#1E53E6" }}
         >
-          [ Выставка &laquo;ключ к&nbsp;доверию&raquo; ]
+          <BracketPhrase text={"Выставка «ключ к\u00A0доверию»"} />
         </p>
         <h1 className={`t-h1 ${styles.title}`}>
           <span className={styles.titleMobile}>
@@ -52,7 +53,7 @@ export function HomePage() {
           безопасность.
         </p>
         <p className={`t-intro mb-20 ${styles.lead}`}>
-          Пройди 10&nbsp;бытовых ситуаций, где ты рискуешь потерять свои данные,
+          Пройди 10&nbsp;бытовых ситуаций, где ты рискуешь потерять свои данные,
           даже не&nbsp;заметив.
         </p>
         {!complete ? (

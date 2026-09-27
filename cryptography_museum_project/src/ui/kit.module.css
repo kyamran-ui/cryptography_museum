@@ -107,4 +107,11 @@
 
 .row {
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .row:hover {
+    background: var(--bg-route-muted);
+  }
 }

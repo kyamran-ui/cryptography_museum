@@ -183,10 +183,23 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .link:focus-visible {
+    outline: none;
+    background: transparent;
+    border: 1px solid #00001a;
+    color: #00001a;
+  }
+
+  .link:focus-visible .museumArrow {
+    color: #00001a;
+  }
+}
+
 @media (min-width: 1024px) and (hover: hover) {
   .link:hover {
-    background: #fff;
-    border-color: #fff;
+    background: transparent;
+    border: 1px solid #00001a;
     color: #00001a;
   }
 

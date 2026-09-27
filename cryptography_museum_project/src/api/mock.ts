@@ -1,4 +1,3 @@
-import { getScenario } from "@/content/load";
 import type {
   Paginated,
   PostRunRequest,
@@ -9,14 +8,15 @@ import type {
 } from "@/content/types";
 import { hasAdminSession } from "@/admin/gate";
 import { categoryStats } from "@/game/scoring";
-import { profileFromIndex } from "@/game/profile";
+import { buildLegendRuns, isLegendRunId, LEGEND_VERSION } from "./legend";
 import { adminPassword } from "./env";
 import { PostRunRequestSchema } from "./schema";
 import { ApiError } from "./types";
 
 const STORE_KEY = "mdd.mocks.runs";
-const DELAY_MS = 120;
-const MAX_RUNS = 50;
+const DELAY_MS = 16;
+const MAX_RUNS = 600;
+const LEGEND_KEY = "mdd.mocks.legend";
 
 type StoredRun = PostRunRequest;
 
@@ -32,124 +32,41 @@ function requireAdmin(): void {
   if (!hasAdminSession()) unauthorized();
 }
 
-function seedRuns(): StoredRun[] {
-  const fixtures: Array<{
-    runId: string;
-    startedAt: string;
-    completedAt: string;
-    picks: Record<string, "A" | "B" | "C" | "D">;
-    anonymousId: string;
-  }> = [
-    {
-      runId: "7aa21f02-9c44-4d18-b0e1-55c8d2a91f30",
-      anonymousId: "3d1c0a7e-6b21-4f0c-9a11-2c8f0e4d7b91",
-      startedAt: "2026-09-13T12:04:11.204Z",
-      completedAt: "2026-09-13T12:11:40.002Z",
-      picks: {
-        s01: "A",
-        s02: "C",
-        s03: "B",
-        s04: "B",
-        s05: "D",
-        s06: "C",
-        s07: "C",
-        s08: "D",
-        s09: "D",
-        s10: "A",
-      },
-    },
-    {
-      runId: "b2e91c44-0a18-4f77-9d03-81aa0c12e4f8",
-      anonymousId: "11111111-1111-4111-8111-111111111111",
-      startedAt: "2026-09-13T11:40:00.000Z",
-      completedAt: "2026-09-13T11:47:12.500Z",
-      picks: {
-        s01: "A",
-        s02: "A",
-        s03: "A",
-        s04: "A",
-        s05: "A",
-        s06: "B",
-        s07: "C",
-        s08: "C",
-        s09: "D",
-        s10: "A",
-      },
-    },
-    {
-      runId: "c8f10d55-1b29-4088-ae14-92bb1d23f509",
-      anonymousId: "22222222-2222-4222-8222-222222222222",
-      startedAt: "2026-09-13T10:02:00.000Z",
-      completedAt: "2026-09-13T10:09:33.000Z",
-      picks: {
-        s01: "D",
-        s02: "C",
-        s03: "C",
-        s04: "B",
-        s05: "D",
-        s06: "C",
-        s07: "C",
-        s08: "D",
-        s09: "D",
-        s10: "A",
-      },
-    },
-  ];
+let memory: StoredRun[] | null = null;
 
-  return fixtures.map((fx) => {
-    const answers = Object.entries(fx.picks).map(([scenarioId, answerId]) => {
-      const scenario = getScenario(scenarioId)!;
-      const score = scenario.answers.find((a) => a.id === answerId)!.score;
-      return {
-        scenarioId: scenario.id,
-        answerId,
-        score,
-      };
-    }) as PostRunRequest["answers"];
-    const index = answers.reduce((sum, a) => sum + a.score, 0);
-    const storedAnswers = answers.map((a) => ({
-      ...a,
-      answeredAt: fx.completedAt,
-    }));
-    const categories = categoryStats(storedAnswers).map(({ id, earned, max, percent }) => ({
-      id,
-      earned,
-      max,
-      percent,
-    }));
-    return {
-      anonymousId: fx.anonymousId,
-      runId: fx.runId,
-      startedAt: fx.startedAt,
-      completedAt: fx.completedAt,
-      index,
-      profileId: profileFromIndex(index),
-      answers,
-      categories,
-      contentVersion: 1 as const,
-      client: "mdd-web" as const,
-    };
-  });
+function remember(runs: StoredRun[]): StoredRun[] {
+  memory = runs.slice(-MAX_RUNS);
+  try {
+    sessionStorage.setItem(STORE_KEY, JSON.stringify(memory));
+    sessionStorage.setItem(LEGEND_KEY, LEGEND_VERSION);
+  } catch {
+    /* the tab still keeps the legend in memory */
+  }
+  return memory;
 }
 
 function readStore(): StoredRun[] {
+  if (memory && sessionStorage.getItem(LEGEND_KEY) === LEGEND_VERSION) return memory;
+  let parsed: StoredRun[] = [];
   try {
     const raw = sessionStorage.getItem(STORE_KEY);
-    if (!raw) {
-      const seeded = seedRuns();
-      sessionStorage.setItem(STORE_KEY, JSON.stringify(seeded));
-      return seeded;
+    if (raw) {
+      const json = JSON.parse(raw) as StoredRun[];
+      if (Array.isArray(json)) parsed = json;
     }
-    const parsed = JSON.parse(raw) as StoredRun[];
-    return Array.isArray(parsed) ? parsed : seedRuns();
   } catch {
-    return seedRuns();
+    parsed = [];
   }
+  if (sessionStorage.getItem(LEGEND_KEY) === LEGEND_VERSION) {
+    memory = parsed;
+    return parsed;
+  }
+  const real = parsed.filter((run) => !isLegendRunId(run.runId));
+  return remember([...real, ...buildLegendRuns()]);
 }
 
 function writeStore(runs: StoredRun[]): void {
-  const trimmed = runs.slice(-MAX_RUNS);
-  sessionStorage.setItem(STORE_KEY, JSON.stringify(trimmed));
+  remember(runs);
 }
 
 function sameBody(a: PostRunRequest, b: PostRunRequest): boolean {

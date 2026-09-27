@@ -153,6 +153,8 @@ input {
   text-transform: uppercase;
   font-weight: 400;
   color: #1E53E6;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .t-points {

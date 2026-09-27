@@ -69,3 +69,11 @@
   text-transform: uppercase;
   white-space: nowrap;
 }
+
+@media (min-width: 1024px) {
+  .map {
+    width: min(100%, calc((100dvh - 220px) * 1000 / 820));
+    min-height: 0;
+    margin-inline: auto;
+  }
+}

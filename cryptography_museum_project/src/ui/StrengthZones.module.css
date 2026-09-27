@@ -34,12 +34,15 @@
 
 .badgeWeak {
   margin: 0;
+  max-width: 100%;
   font-family: var(--font-display);
   font-size: 12px;
   line-height: 120%;
   text-transform: uppercase;
   font-weight: 400;
   color: #e25503;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .text {
@@ -49,6 +52,9 @@
   font-size: 16px;
   line-height: 140%;
   color: var(--black-primary);
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
 }
 
 @media (min-width: 1024px) {

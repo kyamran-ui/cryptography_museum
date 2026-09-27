@@ -1,0 +1,649 @@
+:global(html.adminNoBar),
+:global(html.adminNoBar body) {
+  scrollbar-width: none;
+}
+
+:global(html.adminNoBar::-webkit-scrollbar),
+:global(html.adminNoBar body::-webkit-scrollbar) {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.shell {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 100dvh;
+  background: var(--bg-primary);
+  color: var(--black-primary);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  width: 248px;
+  flex: 0 0 248px;
+  min-height: 100dvh;
+  padding: 35px 16px 76px;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.logoLink {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.logoMuseum {
+  height: 44px;
+  width: auto;
+}
+
+.logoBastion {
+  height: 18px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.link {
+  display: block;
+  padding: 10px 12px;
+  color: var(--black-primary);
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 120%;
+  border-radius: 2px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.linkActive {
+  background: var(--bg-route-next);
+  color: var(--blue-primary);
+  font-weight: 700;
+}
+
+.logout {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #1e53e6;
+}
+
+.bracket {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.word {
+  position: relative;
+}
+
+.word::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  padding: 28px 32px 64px;
+}
+
+.top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 100%;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.periods {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.period,
+.periodOn {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--black-primary);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.periodOn {
+  background: var(--bg-route-next);
+  color: var(--blue-primary);
+  font-weight: 700;
+}
+
+.note {
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card,
+.panel {
+  min-width: 0;
+  max-width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--blue-primary);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.value {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 100%;
+  font-weight: 700;
+}
+
+.hint {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panelTitle {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 120%;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) 48px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.barLabel {
+  font-size: 14px;
+}
+
+.track {
+  height: 8px;
+  background: var(--bg-route-muted);
+}
+
+.fill {
+  height: 100%;
+  background: var(--blue-primary);
+}
+
+.barValue {
+  text-align: right;
+  font-size: 14px;
+}
+
+.donutWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.donut {
+  width: 140px;
+  height: 140px;
+  flex: 0 0 140px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+}
+
+.tableWrap {
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--white);
+  border: 1px solid var(--border);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tableWrap::-webkit-scrollbar {
+  display: none;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--bg-route-muted);
+  white-space: nowrap;
+}
+
+.table th {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--bg-route-muted);
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.phones {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pager button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.pager button:disabled {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.download {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  background: var(--black-primary);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.exportBtn {
+  width: min(360px, 100%);
+  margin-top: 28px;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    background: var(--bg-route-muted);
+    color: var(--blue-primary);
+  }
+
+  .linkActive:hover {
+    background: var(--bg-route-next);
+  }
+
+  .period:hover {
+    background: var(--bg-route-muted);
+    color: var(--blue-primary);
+  }
+
+  .periodOn:hover {
+    background: var(--bg-route-next);
+    color: var(--blue-primary);
+  }
+
+  .logout:hover .word::after {
+    transform: scaleX(1);
+  }
+
+  .logout:hover .bracket:first-child {
+    transform: translateX(-6px);
+  }
+
+  .logout:hover .bracket:last-child {
+    transform: translateX(6px);
+  }
+
+  .pager button:hover:not(:disabled) {
+    background: var(--bg-route-next);
+  }
+
+  .phones .card:hover {
+    background: var(--bg-route-muted);
+  }
+
+  .exportBtn {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .exportBtn img {
+    transition: filter 0.3s ease;
+  }
+
+  .exportBtn:hover:not(:disabled) {
+    background: #fff;
+    border-color: #fff;
+    color: #00001a;
+  }
+
+  .exportBtn:hover:not(:disabled) img {
+    filter: brightness(0);
+  }
+}
+
+.empty {
+  padding: 32px 16px;
+  text-align: center;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.skeleton {
+  height: 88px;
+  background: var(--bg-route-muted);
+}
+
+@media (min-width: 768px) {
+  .phones {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .runsOnly {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    flex-direction: column;
+  }
+
+  .side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand logout"
+      "nav nav";
+    width: 100%;
+    max-width: 100%;
+    flex-basis: auto;
+    min-height: 0;
+    align-items: center;
+    column-gap: 16px;
+    row-gap: 16px;
+    position: static;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 20px clamp(12px, 3vw, 20px) 16px;
+  }
+
+  .brand {
+    grid-area: brand;
+    width: auto;
+    margin-bottom: 0;
+    justify-content: center;
+  }
+
+  .logout {
+    grid-area: logout;
+    position: static;
+    z-index: auto;
+    gap: 6px;
+    padding: 4px 0;
+    font-size: 14px;
+  }
+
+  .nav {
+    grid-area: nav;
+  }
+
+  .logoMuseum {
+    height: clamp(32px, 8vw, 44px);
+  }
+
+  .logoBastion {
+    height: clamp(14px, 3.2vw, 18px);
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+    width: min(100%, 720px);
+    overflow: visible;
+  }
+
+  .link {
+    padding: 8px clamp(8px, 1.5vw, 12px);
+    font-size: clamp(14px, 2vw, 16px);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .main {
+    padding: 20px clamp(12px, 3vw, 24px) 32px;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .title {
+    font-size: clamp(24px, 5vw, 32px);
+    overflow-wrap: anywhere;
+  }
+
+  .periods {
+    align-self: flex-start;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .kpis {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+
+  .value {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .barRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .barLabel {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+  }
+
+  .donut {
+    width: min(140px, 42vw);
+    height: auto;
+    aspect-ratio: 1;
+    flex-basis: auto;
+  }
+
+  .legendItem {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .table {
+    font-size: clamp(12px, 2.4vw, 14px);
+  }
+
+  .table th,
+  .table td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    padding: 10px clamp(8px, 2vw, 14px);
+  }
+
+  .exportBtn {
+    width: min(360px, 100%);
+  }
+}
+
+@media (max-width: 644px) {
+  .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .link {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .periods {
+    width: 100%;
+  }
+
+  .period,
+  .periodOn {
+    flex: 1 1 auto;
+    padding: 0 8px;
+  }
+}

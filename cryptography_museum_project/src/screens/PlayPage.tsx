@@ -9,6 +9,7 @@ import { GhostButton } from "@/ui/Buttons";
 import { CommentCard } from "@/ui/CommentCard";
 import { RouteChips } from "@/ui/RouteChips";
 import { ScoreCard } from "@/ui/ScoreCard";
+import { BracketPhrase } from "@/ui/BracketPhrase";
 import { useToast } from "@/ui/Toast";
 import styles from "./PlayPage.module.css";
 
@@ -51,11 +52,17 @@ export function PlayPage() {
   return (
     <div className={`${styles.play} flex min-w-0 flex-1 flex-col`}>
       <div className={styles.chips}>
-        <RouteChips scenarios={orderedScenarios()} currentId={scenario.id} />
+        <RouteChips
+          scenarios={orderedScenarios()}
+          currentId={scenario.id}
+          doneIds={session.answers.map((answer) => answer.scenarioId)}
+        />
       </div>
       <div className={`${styles.meta} flex items-center justify-end gap-4`}>
         <p className={`t-caption ${styles.count}`}>{scenario.order}/10</p>
-        <p className={`t-badge ${styles.badge}`}>[ {scenario.badge} ]</p>
+        <p className={`t-badge ${styles.badge}`}>
+          <BracketPhrase text={scenario.badge} />
+        </p>
       </div>
       {!debrief ? (
         <div key={`${scenario.id}-ask`} className={`${styles.scene} flex min-h-0 flex-1 flex-col`}>

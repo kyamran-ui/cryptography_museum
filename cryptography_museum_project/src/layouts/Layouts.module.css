@@ -21,7 +21,7 @@
   .shellDesktop {
     max-width: none;
     padding-top: 21px;
-    padding-bottom: 88px;
+    padding-bottom: clamp(24px, calc(24px + (100vh - 700px) * 0.16), 88px);
     /* 1024px → 50px, 1800px → 200px; шире 1800 остаётся 200px */
     padding-inline: clamp(50px, calc(50px + (100vw - 1024px) * 150 / 776), 200px);
   }

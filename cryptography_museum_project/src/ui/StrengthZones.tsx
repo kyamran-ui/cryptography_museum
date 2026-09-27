@@ -1,6 +1,7 @@
 import type { CategoryStat, StoredAnswer } from "@/content/types";
 import { categoryNarrative } from "@/game/categoryNarrative";
 import { CATEGORY_ORDER } from "@/game/scoring";
+import { BracketPhrase } from "@/ui/BracketPhrase";
 import styles from "./StrengthZones.module.css";
 
 export function StrengthZones({
@@ -59,7 +60,7 @@ function ZoneList({
             return (
               <li key={item.id} className={styles.item}>
                 <p className={markBelow && item.percent < 50 ? styles.badgeWeak : "t-badge"}>
-                  [ {badge} ]
+                  <BracketPhrase text={badge} />
                 </p>
                 {text ? <p className={styles.text}>{text}</p> : null}
               </li>

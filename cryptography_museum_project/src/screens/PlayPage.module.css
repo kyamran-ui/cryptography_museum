@@ -59,11 +59,18 @@
   }
 
   .chips {
-    margin-bottom: 80px;
+    margin-bottom: clamp(20px, calc(20px + (100vh - 700px) * 0.2), 80px);
   }
 
   .meta {
-    margin-bottom: 60px;
+    margin-bottom: clamp(34px, calc(34px + (100vh - 700px) * 0.087), 60px);
+    flex-wrap: wrap;
+  }
+
+  .meta .badge {
+    max-width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
   }
 
   .meta .count {
@@ -90,9 +97,21 @@
   }
 
   .question .artFrame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    max-height: min(520px, 46vh);
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .question .art {
+    width: auto;
+    max-width: 100%;
+    max-height: min(520px, 46vh);
+    height: auto;
+    object-fit: contain;
   }
 
   .copy {
@@ -101,29 +120,35 @@
   }
 
   .copy .title {
-    margin: 0 0 20px;
-    font-size: 32px;
+    margin: 0 0 clamp(10px, 1.6vh, 20px);
+    font-size: clamp(22px, 2.6vh, 32px);
     font-weight: 400;
     line-height: 120%;
     letter-spacing: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
   }
 
   .copy .story {
-    margin: 0 0 20px;
-    font-size: 20px;
+    margin: 0 0 clamp(10px, 1.6vh, 20px);
+    font-size: clamp(16px, 1.9vh, 20px);
     font-weight: 300;
     line-height: 140%;
     letter-spacing: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
   }
 
   .copy .answers {
     grid-template-columns: 1fr 1fr;
-    gap: clamp(16px, 1.66vw, 24px);
-    margin-bottom: 44px;
+    gap: clamp(10px, calc(10px + (100vh - 700px) * 0.047), 24px);
+    margin-bottom: clamp(14px, calc(14px + (100vh - 700px) * 0.1), 44px);
   }
 
   .submit {
-    margin-top: 0;
+    margin-top: 10px;
     padding: 0;
   }
 
@@ -136,6 +161,16 @@
     letter-spacing: 0.02em;
     text-transform: uppercase;
     align-items: center;
+    padding: 12px;
+    margin: -12px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .submit .reply:focus-visible:not(:disabled) {
+    outline: none;
+    background: transparent;
+    border-color: #1e53e6;
   }
 
   .submit .reply span {
@@ -155,7 +190,14 @@
     grid-auto-columns: minmax(0, 1fr);
     align-items: stretch;
     gap: 24px;
-    margin-bottom: 56px;
+    margin-bottom: clamp(10px, calc(10px + (100vh - 700px) * 0.153), 56px);
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) {
+  .submit .reply:hover:not(:disabled) {
+    background: transparent;
+    border-color: #1e53e6;
   }
 }
 

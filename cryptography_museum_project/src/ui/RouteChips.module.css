@@ -52,7 +52,8 @@
   transition: background-color 0.3s ease;
 }
 
-.current .mark {
+.current .mark,
+.done .mark {
   background: var(--blue-primary);
 }
 
@@ -68,7 +69,8 @@
   -webkit-mask-size: contain;
 }
 
-.current .icon {
+.current .icon,
+.done .icon {
   background-color: var(--bg-primary);
 }
 
@@ -153,7 +155,7 @@
     outline-offset: 4px;
   }
 
-  .chip:not(.current):focus-visible .mark {
+  .chip:not(.current):not(.done):focus-visible .mark {
     background: #d4dbea;
   }
 
@@ -163,7 +165,7 @@
 }
 
 @media (min-width: 1024px) and (hover: hover) {
-  .chip:not(.current):hover .mark {
+  .chip:not(.current):not(.done):hover .mark {
     background: #d4dbea;
   }
 

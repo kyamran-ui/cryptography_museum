@@ -6,7 +6,6 @@ import { ApiError } from "@/api/types";
 import { orderedScenarios } from "@/content/load";
 import type { RunDetail } from "@/content/types";
 import { PROFILE_COPY } from "@/game/profile";
-import { HeaderMuseumBastion } from "@/ui/HeaderMuseumBastion";
 import { PrimaryButton } from "@/ui/Buttons";
 import { AdminRunAnswers, Banner, CategoryBars, EmptyState, IndexRing } from "@/ui/kit";
 
@@ -51,11 +50,9 @@ export function AdminRunPage() {
 
   return (
     <div className="grid gap-6">
-      <HeaderMuseumBastion />
       <Link to="/admin" style={{ color: "var(--blue-primary)" }}>
         ← К сводке
       </Link>
-      <h1 className="t-h2">Прохождение</h1>
       {valid ? <p className="font-mono break-all">{runId}</p> : null}
       {!valid || (!loading && !run && !error) ? (
         <EmptyState
@@ -79,10 +76,10 @@ export function AdminRunPage() {
             {new Date(run.startedAt).toLocaleString("ru-RU")} →{" "}
             {new Date(run.completedAt).toLocaleString("ru-RU")}
           </p>
-          <IndexRing value={run.index} />
+          <IndexRing key={run.runId} value={run.index} animate />
           <p className="t-h2">{PROFILE_COPY[run.profileId].title}</p>
           <AdminRunAnswers items={run.answers} titles={titles} />
-          <CategoryBars items={run.categories} />
+          <CategoryBars key={run.runId} items={run.categories} grow />
         </>
       ) : null}
     </div>

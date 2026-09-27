@@ -30,7 +30,7 @@
 @media (min-width: 1024px) {
   .wide {
     gap: 28px;
-    margin-bottom: 72px;
+    margin-bottom: clamp(20px, calc(20px + (100vh - 700px) * 0.173), 72px);
     padding-right: 0;
     padding-left: 0;
   }

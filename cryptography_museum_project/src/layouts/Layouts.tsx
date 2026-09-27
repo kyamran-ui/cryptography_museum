@@ -23,9 +23,3 @@ export function VisitorLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-export function AdminLayout({ children }: { children: ReactNode }) {
-  return (
-    <div className="min-h-dvh max-w-[960px] mx-auto px-4 py-6">{children}</div>
-  );
-}

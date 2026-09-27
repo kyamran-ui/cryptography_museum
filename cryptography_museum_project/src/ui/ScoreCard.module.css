@@ -90,9 +90,9 @@
 @media (min-width: 1024px) {
   .card {
     align-items: center;
-    min-height: 172px;
-    margin-bottom: 80px;
-    padding: 24px;
+    min-height: clamp(120px, calc(120px + (100vh - 700px) * 0.173), 172px);
+    margin-bottom: clamp(34px, calc(34px + (100vh - 700px) * 0.153), 80px);
+    padding: clamp(16px, calc(16px + (100vh - 700px) * 0.027), 24px);
     background: #fff;
   }
 
@@ -101,20 +101,23 @@
   }
 
   .choice {
-    margin-top: 12px;
-    font-size: 24px;
+    margin-top: clamp(8px, calc(8px + (100vh - 700px) * 0.013), 12px);
+    font-size: clamp(18px, calc(18px + (100vh - 700px) * 0.02), 24px);
     letter-spacing: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
   }
 
   .label {
-    margin-top: 26px;
+    margin-top: clamp(12px, calc(12px + (100vh - 700px) * 0.047), 26px);
     font-size: 16px;
   }
 
   .icon {
-    width: 24px;
-    height: 24px;
-    flex-basis: 24px;
+    width: clamp(20px, calc(20px + (100vh - 700px) * 0.013), 24px);
+    height: clamp(20px, calc(20px + (100vh - 700px) * 0.013), 24px);
+    flex-basis: clamp(20px, calc(20px + (100vh - 700px) * 0.013), 24px);
   }
 
   .score {
@@ -125,7 +128,7 @@
   }
 
   .points {
-    font-size: 60px;
+    font-size: clamp(44px, calc(44px + (100vh - 700px) * 0.053), 60px);
     line-height: 120%;
     letter-spacing: -0.08em;
   }

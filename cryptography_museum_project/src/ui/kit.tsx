@@ -5,10 +5,31 @@ import { PROFILE_COPY } from "@/game/profile";
 import { Copy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export function IndexRing({ value, max = 100 }: { value: number; max?: number }) {
+export function IndexRing({ value, max = 100, animate = false }: { value: number; max?: number; animate?: boolean }) {
+  const [progress, setProgress] = useState(animate ? 0 : 1);
+
+  useEffect(() => {
+    if (!animate) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setProgress(1);
+      return;
+    }
+    setProgress(0);
+    const start = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / 1100);
+      setProgress(1 - (1 - t) ** 3);
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [animate, value]);
+
+  const shown = animate ? Math.round(value * progress) : value;
   return (
     <div className={kit.ring} aria-label={`Индекс ${value} из ${max}`}>
-      {value}
+      {shown}
     </div>
   );
 }
@@ -17,18 +38,22 @@ export function CategoryBars({
   items,
   variant = "plain",
   play = true,
+  grow = false,
 }: {
   items: CategoryStat[];
   variant?: "plain" | "profile";
   /** When false, profile bars stay at zero until the block is revealed. */
   play?: boolean;
+  /** Grow plain bars from zero, same ease as the visitor statistics. */
+  grow?: boolean;
 }) {
   const reveal = variant === "profile";
-  const [progress, setProgress] = useState(reveal ? 0 : 1);
+  const motion = reveal || grow;
+  const [progress, setProgress] = useState(motion ? 0 : 1);
 
   useEffect(() => {
-    if (!reveal) return;
-    if (!play) {
+    if (!motion) return;
+    if (reveal && !play) {
       setProgress(0);
       return;
     }
@@ -46,13 +71,13 @@ export function CategoryBars({
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [reveal, play]);
+  }, [grow, motion, play, reveal]);
 
   return (
     <div className={kit.bars}>
       {items.map((item) => {
         const weak = variant === "profile" && item.percent < 50;
-        const width = reveal ? item.percent * progress : item.percent;
+        const width = motion ? item.percent * progress : item.percent;
         const mark = reveal ? Math.round(item.percent * progress) : null;
         return (
           <div key={item.id} className={variant === "profile" ? kit.statBlock : undefined}>
@@ -104,7 +129,7 @@ export function AdminRunsTable({ items }: { items: RunListItem[] }) {
           <th>Завершено</th>
           <th>Индекс</th>
           <th>Профиль</th>
-          <th>Run</th>
+          <th>Код прохождения</th>
         </tr>
       </thead>
       <tbody>
@@ -121,7 +146,7 @@ export function AdminRunsTable({ items }: { items: RunListItem[] }) {
               <span className="mr-2">{item.runId.slice(0, 8)}…</span>
               <button
                 type="button"
-                aria-label="Копировать runId"
+                aria-label="Копировать код прохождения"
                 onClick={(event) => {
                   event.stopPropagation();
                   void navigator.clipboard.writeText(item.runId);
@@ -168,13 +193,17 @@ export function AdminRunAnswers({
 export function PasswordField({
   value,
   onChange,
+  label = "Пароль стенда",
+  labelClassName = "t-caption",
 }: {
   value: string;
   onChange: (value: string) => void;
+  label?: string;
+  labelClassName?: string;
 }) {
   return (
     <label className={kit.field}>
-      <span className="t-caption">Пароль стенда</span>
+      <span className={labelClassName}>{label}</span>
       <input
         className={kit.input}
         type="password"

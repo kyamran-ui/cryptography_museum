@@ -7,9 +7,10 @@ import styles from "./RouteChips.module.css";
 type Props = {
   scenarios: Scenario[];
   currentId: Scenario["id"];
+  doneIds: string[];
 };
 
-export function RouteChips({ scenarios, currentId }: Props) {
+export function RouteChips({ scenarios, currentId, doneIds }: Props) {
   const nav = useNavigate();
   const currentRef = useRef<HTMLButtonElement | null>(null);
 
@@ -28,12 +29,13 @@ export function RouteChips({ scenarios, currentId }: Props) {
       <div className={styles.scroller}>
         {scenarios.map((scenario, index) => {
           const current = scenario.id === currentId;
+          const done = doneIds.includes(scenario.id);
           return (
             <Fragment key={scenario.id}>
               <button
                 ref={current ? currentRef : undefined}
                 type="button"
-                className={`${styles.chip} ${current ? styles.current : ""}`}
+                className={`${styles.chip} ${current ? styles.current : ""} ${done ? styles.done : ""}`}
                 onClick={() => nav(`/play/${scenario.id}`)}
               >
                 <span className={styles.mark}>

@@ -1,12 +1,18 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { hasAdminSession } from "@/admin/gate";
-import { AdminLayout, VisitorLayout } from "@/layouts/Layouts";
+import { VisitorLayout } from "@/layouts/Layouts";
 import { HomePage } from "@/screens/HomePage";
 import { PlayPage } from "@/screens/PlayPage";
 import { ResultsPage } from "@/screens/ResultsPage";
+import { AdminCategoriesPage } from "@/screens/admin/AdminCategoriesPage";
 import { AdminLoginPage } from "@/screens/admin/AdminLoginPage";
+import { AdminMistakesPage } from "@/screens/admin/AdminMistakesPage";
+import { AdminOverviewPage } from "@/screens/admin/AdminOverviewPage";
+import { AdminProfilesPage } from "@/screens/admin/AdminProfilesPage";
 import { AdminRunPage } from "@/screens/admin/AdminRunPage";
-import { AdminSummaryPage } from "@/screens/admin/AdminSummaryPage";
+import { AdminRunsPage } from "@/screens/admin/AdminRunsPage";
+import { AdminScenariosPage } from "@/screens/admin/AdminScenariosPage";
+import { AdminShell } from "@/screens/admin/AdminShell";
 
 function VisitorShell() {
   return (
@@ -23,9 +29,9 @@ function AdminGate() {
     return <Navigate to={`/admin/login?next=${next}`} replace />;
   }
   return (
-    <AdminLayout>
+    <AdminShell>
       <Outlet />
-    </AdminLayout>
+    </AdminShell>
   );
 }
 
@@ -42,8 +48,15 @@ export const routes = [
   {
     element: <AdminGate />,
     children: [
-      { path: "/admin", element: <AdminSummaryPage /> },
+      { path: "/admin", element: <AdminOverviewPage /> },
+      { path: "/admin/runs", element: <AdminRunsPage /> },
       { path: "/admin/runs/:runId", element: <AdminRunPage /> },
+      { path: "/admin/scenarios", element: <AdminScenariosPage /> },
+      { path: "/admin/categories", element: <AdminCategoriesPage /> },
+      { path: "/admin/mistakes", element: <AdminMistakesPage /> },
+      { path: "/admin/profiles", element: <AdminProfilesPage /> },
+      { path: "/admin/export", element: <Navigate to="/admin/runs" replace /> },
+      { path: "/admin/*", element: <Navigate to="/admin" replace /> },
     ],
   },
   { path: "/menu", element: <Navigate to="/" replace /> },

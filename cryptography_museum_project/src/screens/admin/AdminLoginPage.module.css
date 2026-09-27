@@ -1,0 +1,84 @@
+.label {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #1e53e6;
+}
+
+.game {
+  justify-self: end;
+  width: auto;
+  min-height: 0;
+}
+
+.enter {
+  width: 100%;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.enter:disabled {
+  background: var(--border);
+  border-color: var(--border);
+  color: #7c7e88;
+}
+
+.enter img {
+  transition: filter 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .game {
+    padding: 12px;
+    margin-right: -12px;
+    margin-bottom: -12px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .game:focus-visible {
+    outline: none;
+    background: transparent;
+    border: 1px solid #1e53e6;
+    padding: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .enter:not(:disabled):focus-visible {
+    outline: none;
+    background: transparent;
+    border: 1px solid #00001a;
+    color: #00001a;
+  }
+
+  .enter:not(:disabled):focus-visible img {
+    filter: brightness(0);
+  }
+}
+
+@media (hover: hover) and (min-width: 1024px) {
+  .game:hover {
+    background: transparent;
+    border: 1px solid #1e53e6;
+    padding: 12px;
+  }
+
+  .enter:not(:disabled):hover {
+    background: transparent;
+    border: 1px solid #00001a;
+    color: #00001a;
+  }
+
+  .enter:not(:disabled):hover img {
+    filter: brightness(0);
+  }
+}
