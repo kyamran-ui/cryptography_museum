@@ -22,11 +22,17 @@ Dev-сервер: `http://127.0.0.1:4174`
 
 ## Docker
 
+Запускать из папки `cryptography_museum_project`: там лежат `Dockerfile`, `nginx.conf` и `docker-compose.yml`. Нужен запущенный Docker Desktop.
+
 ```bash
 docker compose up --build
 ```
 
-Образ слушает **8080**, SPA fallback на `index.html`.
+Сайт: http://127.0.0.1:8080/  
+Админка: http://127.0.0.1:8080/admin/login  
+Пароль демо: `mdd-admin-stand`, если `VITE_ADMIN_PASSWORD` пустой.
+
+Пустой `VITE_API_BASE_URL` включает учебную статистику в браузере. Свой API и пароль задаются в `.env` рядом с `docker-compose.yml` и вшиваются при сборке, поэтому после смены нужен повторный `docker compose up --build`. Пароль демо не является боевой защитой: серверную сессию админа ставит принимающая сторона. Образ отдаёт только статику на порту 8080, запросы API внутри контейнера не проксируются.
 
 ## Ассеты
 
