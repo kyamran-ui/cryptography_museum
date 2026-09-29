@@ -49,8 +49,9 @@ export function HomePage() {
           </span>
         </h1>
         <p className={`t-subtitle ${styles.subtitle}`}>
-          Ваш обычный день&nbsp;&mdash; испытание на&nbsp;цифровую
-          безопасность.
+          Ваш обычный день&nbsp;&mdash;
+          <br />
+          испытание на&nbsp;цифровую безопасность.
         </p>
         <p className={`t-intro mb-20 ${styles.lead}`}>
           Пройдите 10&nbsp;бытовых ситуаций, где вы рискуете потерять свои
