@@ -1,0 +1,566 @@
+openapi: 3.0.3
+info:
+  title: Маршрут цифрового дня
+  version: "1.20"
+  description: |
+    HTTP-контракт, который реализует Бастион. Источник истины по поведению — SPEC.md, раздел 3.
+    Этот файл повторяет тот контракт в формате OpenAPI.
+
+    Клиент — SPA. Свой базы и своего API в этом репозитории нет.
+    Если `VITE_API_BASE_URL` пустой, те же пути обслуживает мок в браузере (`src/api/mock.ts`).
+
+    Персональных данных в телах нет: ни имени, ни почты, ни телефона.
+    `GET /runs` и `GET /runs/{id}` не возвращают `anonymousId`.
+servers:
+  - url: "{baseUrl}"
+    description: Базовый URL без хвостового слэша. В сборке это значение `VITE_API_BASE_URL`.
+    variables:
+      baseUrl:
+        default: https://api.example.com
+tags:
+  - name: runs
+    description: Завершённые обезличенные прохождения
+  - name: admin
+    description: Вход в админку статистики
+  - name: stats
+    description: Сводка стенда
+paths:
+  /runs:
+    post:
+      tags: [runs]
+      operationId: postRun
+      summary: Принять завершённое прохождение
+      description: |
+        Публичный метод. Cookie не нужны.
+        Клиент шлёт тело только когда в прохождении ровно 10 ответов и заполнен `completedAt`.
+        Незавершённые заходы на сервер не уходят.
+        Повтор того же `runId` с тем же телом — 200. Тот же `runId` с другим телом — 409.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostRunRequest"
+      responses:
+        "201":
+          description: Прохождение сохранено впервые
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostRunResponse"
+        "200":
+          description: Тот же runId и то же тело уже были приняты
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostRunResponse"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+        "500":
+          $ref: "#/components/responses/Internal"
+    get:
+      tags: [runs]
+      operationId: listRuns
+      summary: Страница завершённых прохождений
+      description: |
+        Только для админ-сессии. Сортировка `completedAt` по убыванию.
+        В списке нет `anonymousId` и нет персональных данных.
+      security:
+        - bastionAdminSession: []
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/perPage"
+      responses:
+        "200":
+          description: Страница списка. Пустой список тоже 200.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunListResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/Internal"
+  /runs/{id}:
+    get:
+      tags: [runs]
+      operationId: getRun
+      summary: Одно прохождение
+      description: |
+        Только для админ-сессии. `id` — UUID прохождения (`runId`).
+        `correct` равен истине, когда `score` равен 10.
+        Поля `anonymousId` в ответе нет.
+      security:
+        - bastionAdminSession: []
+      parameters:
+        - $ref: "#/components/parameters/runId"
+      responses:
+        "200":
+          description: Карточка прохождения
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunDetail"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/Internal"
+  /admin/session:
+    post:
+      tags: [admin]
+      operationId: createAdminSession
+      summary: Проверить пароль стенда
+      description: |
+        Учётки посетителя нет. Мок сравнивает пароль с `VITE_ADMIN_PASSWORD`,
+        а если переменная пустая — с `mdd-admin-stand`.
+        Мок cookie не ставит: после 200 клиент пишет `sessionStorage['mdd.admin'] = '1'`.
+        Боевой Бастион возвращает тот же JSON и ставит свою httpOnly-cookie.
+        Отдельного HTTP-выхода в этой поставке нет: выход стирает флаг в браузере.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminSessionRequest"
+      responses:
+        "200":
+          description: Пароль принят
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminSessionResponse"
+        "401":
+          $ref: "#/components/responses/InvalidCredentials"
+        "500":
+          $ref: "#/components/responses/Internal"
+  /stats/summary:
+    get:
+      tags: [stats]
+      operationId: getStatsSummary
+      summary: Сводка стенда
+      description: |
+        Только для админ-сессии. Считается по завершённым `POST /runs`.
+        Пока сервер не принимает незавершённые старты, `startedCount` равен `completedCount`,
+        а `attendance` равен `completedCount`.
+      security:
+        - bastionAdminSession: []
+      responses:
+        "200":
+          description: Агрегаты. Нулевая база тоже 200.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsSummary"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/Internal"
+components:
+  securitySchemes:
+    bastionAdminSession:
+      type: apiKey
+      in: cookie
+      name: session
+      description: |
+        Боевая httpOnly-сессия Бастиона после `POST /admin/session`.
+        Имя cookie задаёт Бастион; `session` здесь условное.
+        Демо-мок cookie не использует.
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    perPage:
+      name: per_page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    runId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    ValidationError:
+      description: Тело или query не проходят схему
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: VALIDATION_ERROR
+              message: answers must contain 10 unique scenarioId
+    InvalidCredentials:
+      description: Неверный пароль админки
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: INVALID_CREDENTIALS
+              message: Неверный пароль
+    Unauthorized:
+      description: Нет админ-сессии
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: UNAUTHORIZED
+              message: admin session required
+    NotFound:
+      description: Прохождение не найдено
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: NOT_FOUND
+              message: run not found
+    Conflict:
+      description: Этот runId уже сохранён с другим телом
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: CONFLICT
+              message: runId already stored with a different body
+    RateLimited:
+      description: Слишком много запросов. Для POST /runs не жёстче 60 в минуту с одного IP.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: RATE_LIMITED
+              message: too many POST /runs from this IP
+    Internal:
+      description: Сбой сервера
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ApiError"
+          example:
+            error:
+              code: INTERNAL
+              message: upstream failure
+  schemas:
+    ApiError:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum:
+                - VALIDATION_ERROR
+                - INVALID_CREDENTIALS
+                - UNAUTHORIZED
+                - NOT_FOUND
+                - CONFLICT
+                - RATE_LIMITED
+                - INTERNAL
+            message:
+              type: string
+    ProfileId:
+      type: string
+      enum:
+        - easy_target
+        - trusting_passerby
+        - careful_analyst
+        - digital_ninja
+    ScenarioId:
+      type: string
+      pattern: "^s(0[1-9]|10)$"
+    AnswerId:
+      type: string
+      enum: [A, B, C, D]
+    Score:
+      type: integer
+      enum: [0, 3, 5, 10]
+    CategoryId:
+      type: string
+      enum: [phishing, privacy, wifi, accounts, devices, finance]
+    PostRunAnswer:
+      type: object
+      required: [scenarioId, answerId, score]
+      properties:
+        scenarioId:
+          $ref: "#/components/schemas/ScenarioId"
+        answerId:
+          $ref: "#/components/schemas/AnswerId"
+        score:
+          $ref: "#/components/schemas/Score"
+    PostRunCategory:
+      type: object
+      required: [id, earned, max, percent]
+      properties:
+        id:
+          $ref: "#/components/schemas/CategoryId"
+        earned:
+          type: integer
+          minimum: 0
+        max:
+          type: integer
+          minimum: 1
+        percent:
+          type: integer
+          minimum: 0
+          maximum: 100
+    PostRunRequest:
+      type: object
+      required:
+        - anonymousId
+        - runId
+        - startedAt
+        - completedAt
+        - index
+        - profileId
+        - answers
+        - categories
+        - contentVersion
+        - client
+      properties:
+        anonymousId:
+          type: string
+          format: uuid
+        runId:
+          type: string
+          format: uuid
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        index:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: Сумма `answers[].score`.
+        profileId:
+          $ref: "#/components/schemas/ProfileId"
+        answers:
+          type: array
+          minItems: 10
+          maxItems: 10
+          items:
+            $ref: "#/components/schemas/PostRunAnswer"
+        categories:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/PostRunCategory"
+        contentVersion:
+          type: integer
+          enum: [1]
+        client:
+          type: string
+          enum: [mdd-web]
+    PostRunResponse:
+      type: object
+      required: [ok, runId, stored]
+      properties:
+        ok:
+          type: boolean
+          enum: [true]
+        runId:
+          type: string
+          format: uuid
+        stored:
+          type: boolean
+    AdminSessionRequest:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+          minLength: 1
+          maxLength: 200
+    AdminSessionResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+          enum: [true]
+    RunListItem:
+      type: object
+      required: [runId, startedAt, completedAt, index, profileId, answeredCount]
+      properties:
+        runId:
+          type: string
+          format: uuid
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        index:
+          type: integer
+          minimum: 0
+          maximum: 100
+        profileId:
+          $ref: "#/components/schemas/ProfileId"
+        answeredCount:
+          type: integer
+          enum: [10]
+    RunListResponse:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/RunListItem"
+        meta:
+          type: object
+          required: [total, page, per_page]
+          properties:
+            total:
+              type: integer
+              minimum: 0
+            page:
+              type: integer
+              minimum: 1
+            per_page:
+              type: integer
+              minimum: 1
+              maximum: 100
+    RunAnswerDetail:
+      type: object
+      required: [scenarioId, answerId, score, correct, maxScore]
+      properties:
+        scenarioId:
+          $ref: "#/components/schemas/ScenarioId"
+        answerId:
+          $ref: "#/components/schemas/AnswerId"
+        score:
+          $ref: "#/components/schemas/Score"
+        correct:
+          type: boolean
+          description: Истина только при score 10.
+        maxScore:
+          type: integer
+          enum: [10]
+    RunCategoryDetail:
+      type: object
+      required: [id, label, earned, max, percent]
+      properties:
+        id:
+          $ref: "#/components/schemas/CategoryId"
+        label:
+          type: string
+          minLength: 1
+        earned:
+          type: integer
+          minimum: 0
+        max:
+          type: integer
+          minimum: 1
+        percent:
+          type: integer
+          minimum: 0
+          maximum: 100
+    RunDetail:
+      type: object
+      required: [runId, startedAt, completedAt, index, profileId, answers, categories]
+      properties:
+        runId:
+          type: string
+          format: uuid
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        index:
+          type: integer
+          minimum: 0
+          maximum: 100
+        profileId:
+          $ref: "#/components/schemas/ProfileId"
+        answers:
+          type: array
+          minItems: 10
+          maxItems: 10
+          items:
+            $ref: "#/components/schemas/RunAnswerDetail"
+        categories:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/RunCategoryDetail"
+    StatsSummary:
+      type: object
+      required:
+        - startedCount
+        - completedCount
+        - attendance
+        - averageIndex
+        - completionRate
+        - profileCounts
+      properties:
+        startedCount:
+          type: integer
+          minimum: 0
+        completedCount:
+          type: integer
+          minimum: 0
+        attendance:
+          type: integer
+          minimum: 0
+          description: Равно completedCount.
+        averageIndex:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Среднее index по завершённым прохождениям, один знак после запятой. При нуле завершений — 0.
+        completionRate:
+          type: integer
+          minimum: 0
+          maximum: 100
+        profileCounts:
+          type: object
+          required: [easy_target, trusting_passerby, careful_analyst, digital_ninja]
+          properties:
+            easy_target:
+              type: integer
+              minimum: 0
+            trusting_passerby:
+              type: integer
+              minimum: 0
+            careful_analyst:
+              type: integer
+              minimum: 0
+            digital_ninja:
+              type: integer
+              minimum: 0

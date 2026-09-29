@@ -49,12 +49,12 @@ export function HomePage() {
           </span>
         </h1>
         <p className={`t-subtitle ${styles.subtitle}`}>
-          Твой обычный день&nbsp;&mdash; испытание на&nbsp;цифровую
+          Ваш обычный день&nbsp;&mdash; испытание на&nbsp;цифровую
           безопасность.
         </p>
         <p className={`t-intro mb-20 ${styles.lead}`}>
-          Пройди 10&nbsp;бытовых ситуаций, где ты рискуешь потерять свои данные,
-          даже не&nbsp;заметив.
+          Пройдите 10&nbsp;бытовых ситуаций, где вы рискуете потерять свои
+          данные, даже не&nbsp;заметив.
         </p>
         {!complete ? (
           <PrimaryButton

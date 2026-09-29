@@ -10,7 +10,7 @@ export const CHIP_ICON_BY_SCENARIO: Record<Scenario["id"], string> = {
   s07: "bank-icon.svg",
   s08: "post-icon.svg",
   s09: "sofa-icon.svg",
-  s10: "sofa-icon.svg",
+  s10: "house-icon.svg",
 };
 
 export const SCORE_LABEL_ICON = {
