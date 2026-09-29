@@ -105,7 +105,7 @@ function drawPortrait(view: ResultsView, session: SessionState): HTMLCanvasEleme
   };
 
   section("Сильные стороны", view.strengths, false);
-  section("Зоны роста", view.risks, true);
+  section("Зоны риска", view.risks, true);
 
   paragraph("Статистика", '600 16px Bahnschrift, "Segoe UI", "Arial Narrow", sans-serif', 16, INK, 12);
   for (const item of view.categories) {

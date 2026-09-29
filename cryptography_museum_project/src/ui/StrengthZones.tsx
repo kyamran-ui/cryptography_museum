@@ -24,7 +24,7 @@ export function StrengthZones({
         empty="Пока нет устойчивых тем — это нормально, откройте памятку."
       />
       <ZoneList
-        title="Зоны роста"
+        title="Зоны риска"
         items={risks}
         answers={answers}
         markBelow
